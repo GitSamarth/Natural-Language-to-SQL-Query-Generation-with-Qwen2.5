@@ -93,23 +93,6 @@ Each app shows the model's aggregate evaluation metrics (correctness, format com
 - **Not a fully controlled ablation.** Model size, data volume, and eval sample size (n=400 vs n=2000) all differ between Run A and Run B, so the results show a real pattern but don't cleanly isolate model-size effect from data-size effect.
 - Both base models already produce mostly-correct SQL zero-shot, which caps how large an improvement any fine-tune can show without a larger/more diverse training set.
 
-## Usage
-
-Reload a trained adapter:
-
-```python
-from transformers import AutoModelForCausalLM, AutoTokenizer
-from peft import PeftModel
-import torch
-
-base = AutoModelForCausalLM.from_pretrained(
-    "Qwen/Qwen2.5-1.5B-Instruct",
-    dtype=torch.float16,
-    device_map="auto",
-)
-model = PeftModel.from_pretrained(base, "./qwen2.5-1.5b-sql-lora-adapter-40k-1ep")
-tokenizer = AutoTokenizer.from_pretrained("./qwen2.5-1.5b-sql-lora-adapter-40k-1ep")
-```
 
 ## Repo Structure
 
