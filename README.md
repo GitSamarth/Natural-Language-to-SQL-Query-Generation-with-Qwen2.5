@@ -36,10 +36,10 @@ Fine-tunes small open LLMs to convert natural language questions + a table schem
 | **Hardware** | Google Colab, T4 GPU |
 | **Held-out test set** | 3,000 examples, fixed seed, disjoint from both runs' train/validation splits |
 
-| Run | Base Model | Params | Train Examples | Epochs | Training Time |
+| Run | Base Model | Params | Train Examples | Epochs |
 |---|---|---|---|---|---|
-| **A** | `Qwen/Qwen2.5-1.5B-Instruct` | 1.5B | 40,000 | 1 | ~1.5–2 hr |
-| **B** | `Qwen/Qwen2.5-0.5B-Instruct` | 0.5B | 14,250 | 1 | ~46 min |
+| **A** | `Qwen/Qwen2.5-1.5B-Instruct` | 1.5B | 40,000 | 1 | 
+| **B** | `Qwen/Qwen2.5-0.5B-Instruct` | 0.5B | 14,250 | 1 | 
 
 ### Why LoRA, not QLoRA
 
