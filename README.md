@@ -87,12 +87,6 @@ streamlit run app_1_5b.py     # Qwen2.5-1.5B fine-tuned
 
 Each app shows the model's aggregate evaluation metrics (correctness, format compliance) alongside a live "Try it" panel with preset examples plus a free-text option. See [`RUN_DEMO.md`](./RUN_DEMO.md) for full setup instructions, including running via Google Colab with an `ngrok` tunnel.
 
-## Limitations
-
-- **Correctness metric has a low ceiling.** Column-match on an empty schema doesn't validate WHERE/JOIN/aggregation logic. A stronger eval would use a dataset with populated tables (e.g. Spider) for true execution-accuracy.
-- **Not a fully controlled ablation.** Model size, data volume, and eval sample size (n=400 vs n=2000) all differ between Run A and Run B, so the results show a real pattern but don't cleanly isolate model-size effect from data-size effect.
-- Both base models already produce mostly-correct SQL zero-shot, which caps how large an improvement any fine-tune can show without a larger/more diverse training set.
-
 
 ## Repo Structure
 
