@@ -23,7 +23,6 @@ Fine-tunes small open LLMs to convert natural language questions + a table schem
 - [Finding](#finding)
 - [Live Demo](#live-demo)
 - [Limitations](#limitations)
-- [Future Work](#future-work)
 - [Usage](#usage)
 - [Repo Structure](#repo-structure)
 
@@ -37,15 +36,9 @@ Fine-tunes small open LLMs to convert natural language questions + a table schem
 | **Held-out test set** | 3,000 examples, fixed seed, disjoint from both runs' train/validation splits |
 
 | Run | Base Model | Params | Train Examples | Epochs |
-|---|---|---|---|---|---|
-| **A** | `Qwen/Qwen2.5-1.5B-Instruct` | 1.5B | 40,000 | 1 | 
-| **B** | `Qwen/Qwen2.5-0.5B-Instruct` | 0.5B | 14,250 | 1 | 
-
-### Why LoRA, not QLoRA
-
-QLoRA's value is fitting a **larger** frozen base model into limited VRAM via 4-bit quantization. At 0.5B–1.5B params, FP16 weights already fit comfortably on a T4 (16GB) with room to spare, so 4-bit quantization would add dependency risk and quantization noise without solving a constraint that exists here. QLoRA becomes necessary around 7B+ params, where FP16 weights alone (~14GB) leave no headroom on a 16GB GPU.
-
-> A 7B + QLoRA follow-up run was attempted and blocked by an environment bug — see [Limitations](#limitations).
+|---|---|---|---|---|
+| **A** | `Qwen/Qwen2.5-1.5B-Instruct` | 1.5B | 40,000 | 1 |
+| **B** | `Qwen/Qwen2.5-0.5B-Instruct` | 0.5B | 14,250 | 1 |
 
 ## Evaluation Methodology
 
@@ -98,15 +91,7 @@ Each app shows the model's aggregate evaluation metrics (correctness, format com
 
 - **Correctness metric has a low ceiling.** Column-match on an empty schema doesn't validate WHERE/JOIN/aggregation logic. A stronger eval would use a dataset with populated tables (e.g. Spider) for true execution-accuracy.
 - **Not a fully controlled ablation.** Model size, data volume, and eval sample size (n=400 vs n=2000) all differ between Run A and Run B, so the results show a real pattern but don't cleanly isolate model-size effect from data-size effect.
-- **7B + QLoRA follow-up was blocked by an environment bug.** `transformers`'s bitsandbytes integration failed to detect a working install despite bitsandbytes importing and functioning correctly standalone — a known class of compatibility issue between very new `transformers` releases and `bitsandbytes`. Downgrading `transformers` did not resolve it within the debugging time available.
 - Both base models already produce mostly-correct SQL zero-shot, which caps how large an improvement any fine-tune can show without a larger/more diverse training set.
-
-## Future Work
-
-- [ ] Run a properly controlled ablation: same model at multiple data scales, and same data at multiple model scales, evaluated at matched sample sizes.
-- [ ] Resolve the QLoRA environment issue and add a 7B data point.
-- [ ] Switch to a schema+data dataset (e.g. Spider) for true execution-accuracy including WHERE/JOIN logic.
-- [ ] Add an error-category breakdown (syntax error vs. wrong table vs. wrong filter) instead of binary correct/incorrect.
 
 ## Usage
 
