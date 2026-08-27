@@ -95,12 +95,6 @@ Each app shows the model's aggregate evaluation metrics (correctness, format com
 
 ## Usage
 
-```bash
-git clone <this-repo>
-cd nl2sql-qwen2.5
-pip install -r requirements.txt
-```
-
 Reload a trained adapter:
 
 ```python
@@ -131,5 +125,5 @@ tokenizer = AutoTokenizer.from_pretrained("./qwen2.5-1.5b-sql-lora-adapter-40k-1
 ├── app_1_5b.py            # Streamlit demo — 1.5B fine-tuned model
 ├── RUN_DEMO.md            # Demo setup instructions (Colab + ngrok)
 ├── README.md
-└── requirements.txt
+
 ```
